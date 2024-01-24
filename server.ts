@@ -11,6 +11,11 @@ import { expressMiddleware } from "@apollo/server/express4"
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
+interface NewsEvent {
+    title: String
+    description: String
+}
+
 // Asnychronous Anonymous Function
 // Inside of server.ts -> await keyword
 
@@ -30,6 +35,10 @@ import bodyParser from 'body-parser';
         type Query {
             placeholder: Boolean
         }
+
+        type Query {
+            events: NewsEvent[]
+        }
         
         type Mutation {
             createNewsEvent(title: String, description: String) : NewsEvent
@@ -45,9 +54,12 @@ import bodyParser from 'body-parser';
         description: string
     }
 
+    const events: NewsEvent[] = [{title: 'All Information', description: 'test'}]
+
     const resolvers = {
         Query: {
-            placeholder: () => { return true }
+            placeholder: () => { return true },
+            events: events
         },
         Mutation: {
             createNewsEvent: (_parent : any, args : createNewsEventInput ) => {
