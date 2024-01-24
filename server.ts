@@ -37,7 +37,7 @@ interface NewsEvent {
         }
 
         type Query {
-            events: NewsEvent[]
+            events: [NewsEvent]
         }
         
         type Mutation {
@@ -54,12 +54,12 @@ interface NewsEvent {
         description: string
     }
 
-    const events: NewsEvent[] = [{title: 'All Information', description: 'test'}]
+    const events = [{title: 'Harry Potter', description: 'Hogwarts'}] as NewsEvent[]
 
     const resolvers = {
         Query: {
             placeholder: () => { return true },
-            events: events
+            events: () => events,
         },
         Mutation: {
             createNewsEvent: (_parent : any, args : createNewsEventInput ) => {
